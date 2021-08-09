@@ -1,0 +1,55 @@
+ body, html {
+  height: 190%;
+}
+.bg {
+  /* The image used */
+  background-image: url("pexels-artem-3095619.jpg");
+
+  /* Half height */
+  height: 10%;
+
+  /*Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+  #clockdisplay{
+    float: right;
+    background-color: black;
+    border: #999 2px inset;
+    padding: 6px;
+    color: rgb(252, 248, 247);
+    font-family: "Arial black", Gadget ,sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    display: inline;
+}
+#mytypingtext{
+    width: 100%;
+    text-align: center;
+    height: 221px;
+    padding-top: 290px;
+    color:#f8f4f4;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 23px;
+    font-weight: 700;;
+    
+
+}
+#footer{
+  padding-top: 650px;
+
+}
+.footerText{
+  margin: 0px;
+  width: 100%;
+  text-align: center;
+  color: #F0E68C;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 1.5em;
+}
+.boarderLine{
+  
+  border: 1px solid #F0E68C;}

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fakeNewsDetection</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="style/style.css">
+<link rel="stylesheet" href="style/searchbar.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="javaScript/autoTimeDisplay.js"></script>
+<script src="javaScript/autoInfoDisplay.js"></script>
+</head>
+<body class="bg">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>                        
+            </button>
+            <a class="navbar-brand" href="#">LOGO</a></div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="index.html">Home</a></li>
+              
+              <li><a href="#"></a></li>
+              
+            </ul>
+           
+              
+              
+          </div >
+        </div>
+      </nav>
+      <div class="row container-fluid">
+        <div id="clockdisplay"></div>
+      </div>
+      <div class="row container-fluid">
+        <div class="row container-fluid center text-center" style=color:#f8f4f4;>
+          <h1>Fake News Detection</h1>
+        </div>
+      </div>
+      <div class="row container-fluid center text-center" style=color:#fdf9f9;>
+         <p>PASTE YOUR URL TO CHECK FAKE NEWS</p>
+        </div>
+       <div id="replace" class="row container-fluid">
+        <div class="searchBox">
+          <input id="urlText"  class="searchText" placeholder="https//example.com">
+          <a class="searchBtn" onclick="myfunction();"><i class="fa fa-search"></i></a>
+        </div>
+        <div calss="row container-fluid" id="mytypingtext" style=padding-top:430px;></div>
+       </div>
+      
+      <script>
+        framelooper();
+        rendertime();
+        
+        var flag=0;
+        function err(){
+          if(flag==0){
+            document.getElementById('replace').innerHTML= `
+          <div id="wait" class="row container-fluid center text-info text-center">Fake news .....</div>
+          <br>
+          <div calss="row container-fluid" id="mytypingtext"></div>
+          `
+          }
+        }
+        
+         function myfunction(){
+          setTimeout(err,15000);
+          var inputvalue = document.getElementById("urlText").value;
+          var josondata = `https://model-app-nodejs.herokuapp.com/input/?url=${inputvalue}`;
+          document.getElementById('replace').innerHTML= `
+          <div id="wait" class="row container-fluid center text-info text-center">PLEASE WAIT FOR A SEC .....</div>
+          <br>
+          <div calss="row container-fluid" id="mytypingtext"></div>
+          `
+          fetch(josondata).then((response)=>{
+            return response.json();
+          }).then((dat)=>{
+            console.log(dat);
+            console.log(dat.data.admin_data)
+            console.log(dat.data.admin_data.content)
+            console.log(dat.prediction)
+            flag=1;
+            var block = document.getElementById('replace');
+            block.innerHTML =`<div id="result" class="text-success" >
+              Prediction: ${dat.prediction}, Similarity: ${dat.similarity*100}, Stance: ${dat.stance}
+            </div>
+            <div id="replace" class="row container-fluid bg-info">
+            <div class="col-lg-6 center text-info text-center">
+              <h2>ADMIN DATA</h2>
+              <h3>${dat.data.admin_data.headline}</h3>
+              <br>
+              <p>${dat.data.admin_data.content}</p>
+              <br>
+              <div><img src="${dat.data.admin_data.image}" width=290" height="199"></div>
+              </div>
+              <div class="col-lg-6 center text-info text-center">
+                <h2>USER DATA</h2>
+                <h3>${dat.data.user_data.headline}</h3>
+              <br>
+              <p>${dat.data.user_data.content}</p>
+              <br>
+              <div><img alt="Qries" src="${dat.data.user_data.image}" width=290" height="199"></div>
+              </div>
+              </div>
+            `;
+          })    
+}
+      </script>
+      <div id="footer">
+       <div  class="row container-fluid" style="background-color: #000000; margin:0 auto;">
+        <Hr class="boarderLine"></Hr>
+        <div class="col-lg-4">
+          <ul style="list-style-type: none;">
+          <li class="footerText">ABOUT US</li>
+          <li class="footerText"> Department of Computer Science<br>
+           Bundelkhand Institute of Engineering & Technology, JHS, IND </li>
+          <li class="footerText">Pankaj Dubey, Samarth Agrawal, Ira Tyagi, Vivek Malik,               Abhay Sharma</li>
+        </ul></div>
+        <div class="col-lg-4"><ul style="list-style-type: none;">
+          <li class="footerText">MENTOR</li>
+          <li class="footerText">Prof. A.K. Solanki</li>
+          <li class="footerText">Computer Science and Engineering</li>
+          <li class="footerText">9415060081</li>
+          <li class="footerText">solankibiet13@gmail.com</li>
+        </ul></div>
+        <div class="col-lg-4">
+          <ul style="list-style-type: none;"> 
+          <li class="footerText">Contact</li>
+          <li class="footerText">Email:dubeypd09@gmail.com</li>
+          <li class="footerText">Email:samarthagarwall414@gmail.com</li>
+          <li class="footerText">Email:iratyagi31@gmail.com</li>
+          <li class="footerText">Email:ch.vivekmalik@gmail.com</li>
+          <li class="footerText">Email:Abhaysharma@gmail.com</li>
+        </ul></div>
+       </div>
+      </div>
+    </body>
+</html>
