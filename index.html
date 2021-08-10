@@ -89,6 +89,13 @@
             console.log(dat.prediction)
             flag=1;
             var block = document.getElementById('replace');
+             var pred;
+            if(dat.similarity<0.6){
+              pred="FAKE";
+            }
+            else{
+              pred="REAL";
+            }
             block.innerHTML =`<div id="result" class="text-success" >
               Prediction: ${dat.prediction}, Similarity: ${dat.similarity*100}, Stance: ${dat.stance}
             </div>
